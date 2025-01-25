@@ -1,12 +1,16 @@
-import React, { Children, useState } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 import Mycontext from './Mycontext'
 
 
 const Constext = (props) => {
-    const [Tasks,setTasks]=useState([])
+    const [Tasks,setTasks]=useState(()=>{
+   let value=localStorage.getItem("tasks")  
+   return value?JSON.parse(value):[]
+    })
+    console.log(Tasks)
+    console.log( JSON.parse(localStorage.getItem("tasks")))
+    
     const edit = (id) => {
-        console.log(id);
-      
         const newar = Tasks.find((idy) => {
           return idy.id == id;
         });
@@ -34,6 +38,12 @@ const Constext = (props) => {
         })
         setTasks(newtasks)
     }
+
+    useEffect(()=>{
+        localStorage.setItem("tasks",JSON.stringify(Tasks))
+      },[Tasks])
+      
+    
     return(
         <Mycontext.Provider value={{setTasks:setTasks,Tasks:Tasks,del:del,edit:edit}}>
         {props.children}
