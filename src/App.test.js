@@ -1,0 +1,7 @@
+import { describe, it, expect } from 'vitest'
+
+describe('Simple test', () => {
+  it('adds numbers correctly', () => {
+    expect(2 + 3).toBe(5)
+  })
+})
